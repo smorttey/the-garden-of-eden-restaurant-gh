@@ -9,7 +9,58 @@
     <link rel="stylesheet" href="styles.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
 </head>
-<body x-data="{ mobileMenuOpen: false, activeImage: null }">
+<body x-data="{ 
+    mobileMenuOpen: false, 
+    activeImage: null,
+    loading: true,
+    galleryImages: [
+        './assets/images/gallery/1.jpg',
+        './assets/images/gallery/2.jpg',
+        './assets/images/gallery/3.jpg',
+        './assets/images/gallery/4.jpg',
+        './assets/images/gallery/5.jpg',
+        './assets/images/gallery/6.jpg'
+    ],
+    init() {
+        setTimeout(() => {
+            this.loading = false;
+        }, 3000);
+    },
+    nextImage() {
+        const currentIndex = this.galleryImages.indexOf(this.activeImage);
+        const nextIndex = (currentIndex + 1) % this.galleryImages.length;
+        this.activeImage = this.galleryImages[nextIndex];
+    },
+    previousImage() {
+        const currentIndex = this.galleryImages.indexOf(this.activeImage);
+        const prevIndex = currentIndex <= 0 ? this.galleryImages.length - 1 : currentIndex - 1;
+        this.activeImage = this.galleryImages[prevIndex];
+    }
+}">
+    <!-- Preloader -->
+    <div class="preloader" x-show="loading" x-transition.duration.500ms>
+        <div class="text-loader">
+            <span>T</span>
+            <span>h</span>
+            <span>e</span>
+            <span>&nbsp;</span>
+            <span>G</span>
+            <span>a</span>
+            <span>r</span>
+            <span>d</span>
+            <span>e</span>
+            <span>n</span>
+            <span>&nbsp;</span>
+            <span>o</span>
+            <span>f</span>
+            <span>&nbsp;</span>
+            <span>E</span>
+            <span>d</span>
+            <span>e</span>
+            <span>n</span>
+        </div>
+    </div>
+
     <header class="header">
         <nav class="nav-container">
             <div class="logo">Garden of Eden</div>
@@ -39,18 +90,22 @@
         <section id="about" class="about">
             <div class="container">
                 <h2>About Us</h2>
-                <p>Welcome to Garden of Eden, a serene and luxurious dining destination at Abrepo Junction. We blend relaxation, entertainment, and exquisite cuisine to create unforgettable experiences.</p>
+                <div class="about-content">
+                    <p>Welcome to Garden of Eden, a serene and luxurious dining destination at Abrepo Junction. We blend relaxation, entertainment, and exquisite cuisine to create unforgettable experiences.</p>
+                </div>
             </div>
         </section>
 
         <section id="menu" class="menu">
             <div class="container">
                 <h2>Our Menu</h2>
-                <p>Explore our diverse selection of local and continental dishes.</p>
-                <a href="./assets/menu.pdf" class="menu-download-button" download>
-                    <i class="fas fa-download"></i>
-                    Download Menu PDF
-                </a>
+                <div class="menu-content">
+                    <p>Explore our diverse selection of local and continental dishes.</p>
+                    <a href="./assets/menu.pdf" class="menu-download-button" download>
+                        <i class="fas fa-download"></i>
+                        Download Menu PDF
+                    </a>
+                </div>
             </div>
         </section>
 
@@ -58,22 +113,22 @@
             <div class="container">
                 <h2>Gallery</h2>
                 <div class="gallery-grid">
-                    <div class="gallery-item" @click="activeImage = './assets/images/gallery/1.jpg'">
+                    <div class="gallery-item" @click="activeImage = galleryImages[0]">
                         <img src="./assets/images/gallery/1.jpg" alt="" loading="lazy">
                     </div>
-                    <div class="gallery-item" @click="activeImage = './assets/images/gallery/2.jpg'">
+                    <div class="gallery-item" @click="activeImage = galleryImages[1]">
                         <img src="./assets/images/gallery/2.jpg" alt="" loading="lazy">
                     </div>
-                    <div class="gallery-item" @click="activeImage = './assets/images/gallery/3.jpg'">
+                    <div class="gallery-item" @click="activeImage = galleryImages[2]">
                         <img src="./assets/images/gallery/3.jpg" alt="" loading="lazy">
                     </div>
-                    <div class="gallery-item" @click="activeImage = './assets/images/gallery/4.jpg'">
+                    <div class="gallery-item" @click="activeImage = galleryImages[3]">
                         <img src="./assets/images/gallery/4.jpg" alt="" loading="lazy">
                     </div>
-                    <div class="gallery-item" @click="activeImage = './assets/images/gallery/5.jpg'">
+                    <div class="gallery-item" @click="activeImage = galleryImages[4]">
                         <img src="./assets/images/gallery/5.jpg" alt="" loading="lazy">
                     </div>
-                    <div class="gallery-item" @click="activeImage = './assets/images/gallery/6.jpg'">
+                    <div class="gallery-item" @click="activeImage = galleryImages[5]">
                         <img src="./assets/images/gallery/6.jpg" alt="" loading="lazy">
                     </div>
                 </div>
@@ -89,10 +144,16 @@
                  x-transition:leave="fade-leave"
                  x-transition:leave-start="fade-leave-start"
                  x-transition:leave-end="fade-leave-end">
-                <button class="lightbox-close" @click="activeImage = null">
+                <button class="lightbox-close" @click.stop="activeImage = null">
                     <i class="fas fa-times"></i>
                 </button>
+                <button class="lightbox-nav lightbox-prev" @click.stop="previousImage()">
+                    <i class="fas fa-chevron-left"></i>
+                </button>
                 <img :src="activeImage" alt="" @click.stop>
+                <button class="lightbox-nav lightbox-next" @click.stop="nextImage()">
+                    <i class="fas fa-chevron-right"></i>
+                </button>
             </div>
         </section>
 
