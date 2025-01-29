@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Garden of Eden Restaurant - A Haven of Elegance</title>
+    <meta name="description" content="Experience luxury dining at Garden of Eden Restaurant. Enjoy local & continental cuisine, live entertainment, and games in a sophisticated atmosphere.">
+    <script defer src="https://unpkg.com/alpinejs@3.x.x/dist/cdn.min.js"></script>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body x-data="{ mobileMenuOpen: false, activeImage: null }">
+    <header class="header">
+        <nav class="nav-container">
+            <div class="logo">Garden of Eden</div>
+            <button class="mobile-menu-button" @click="mobileMenuOpen = !mobileMenuOpen">
+                <i class="fas fa-bars"></i>
+            </button>
+            <ul class="nav-links" :class="{ 'active': mobileMenuOpen }">
+                <li><a href="#home">Home</a></li>
+                <li><a href="#about">About</a></li>
+                <li><a href="#menu">Menu</a></li>
+                <li><a href="#gallery">Gallery</a></li>
+                <li><a href="#offerings">Offerings</a></li>
+                <li><a href="#contact">Contact</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main>
+        <section id="home" class="hero">
+            <div class="hero-content">
+                <h1>Welcome to Garden of Eden</h1>
+                <p>A Haven of Elegance and Entertainment</p>
+                <a href="#contact" class="cta-button">Visit Us</a>
+            </div>
+        </section>
+
+        <section id="about" class="about">
+            <div class="container">
+                <h2>About Us</h2>
+                <p>Welcome to Garden of Eden, a serene and luxurious dining destination at Abrepo Junction. We blend relaxation, entertainment, and exquisite cuisine to create unforgettable experiences.</p>
+            </div>
+        </section>
+
+        <section id="menu" class="menu">
+            <div class="container">
+                <h2>Our Menu</h2>
+                <p>Explore our diverse selection of local and continental dishes.</p>
+                <a href="./assets/menu.pdf" class="menu-download-button" download>
+                    <i class="fas fa-download"></i>
+                    Download Menu PDF
+                </a>
+            </div>
+        </section>
+
+        <section id="gallery" class="gallery">
+            <div class="container">
+                <h2>Gallery</h2>
+                <div class="gallery-grid">
+                    <div class="gallery-item" @click="activeImage = './assets/images/gallery/1.jpg'">
+                        <img src="./assets/images/gallery/1.jpg" alt="" loading="lazy">
+                    </div>
+                    <div class="gallery-item" @click="activeImage = './assets/images/gallery/2.jpg'">
+                        <img src="./assets/images/gallery/2.jpg" alt="" loading="lazy">
+                    </div>
+                    <div class="gallery-item" @click="activeImage = './assets/images/gallery/3.jpg'">
+                        <img src="./assets/images/gallery/3.jpg" alt="" loading="lazy">
+                    </div>
+                    <div class="gallery-item" @click="activeImage = './assets/images/gallery/4.jpg'">
+                        <img src="./assets/images/gallery/4.jpg" alt="" loading="lazy">
+                    </div>
+                    <div class="gallery-item" @click="activeImage = './assets/images/gallery/5.jpg'">
+                        <img src="./assets/images/gallery/5.jpg" alt="" loading="lazy">
+                    </div>
+                    <div class="gallery-item" @click="activeImage = './assets/images/gallery/6.jpg'">
+                        <img src="./assets/images/gallery/6.jpg" alt="" loading="lazy">
+                    </div>
+                </div>
+            </div>
+
+            <!-- Lightbox -->
+            <div class="lightbox" 
+                 x-show="activeImage" 
+                 @click="activeImage = null"
+                 x-transition:enter="fade-enter"
+                 x-transition:enter-start="fade-enter-start"
+                 x-transition:enter-end="fade-enter-end"
+                 x-transition:leave="fade-leave"
+                 x-transition:leave-start="fade-leave-start"
+                 x-transition:leave-end="fade-leave-end">
+                <button class="lightbox-close" @click="activeImage = null">
+                    <i class="fas fa-times"></i>
+                </button>
+                <img :src="activeImage" alt="" @click.stop>
+            </div>
+        </section>
+
+        <section id="offerings" class="offerings">
+            <div class="container">
+                <h2>What We Offer</h2>
+                <div class="offerings-grid">
+                    <div class="offering-card">
+                        <i class="fas fa-star"></i>
+                        <h3>Stylish & Inviting Atmosphere</h3>
+                        <p>Immerse yourself in a beautifully designed space that exudes class and comfort.</p>
+                    </div>
+                    <div class="offering-card">
+                        <i class="fas fa-utensils"></i>
+                        <h3>Delicious Cuisine</h3>
+                        <p>Savor a carefully curated menu of local & continental dishes crafted to satisfy diverse palates.</p>
+                    </div>
+                    <div class="offering-card">
+                        <i class="fas fa-music"></i>
+                        <h3>Live Entertainment</h3>
+                        <p>Enjoy energetic beats, live performances, and curated music selection.</p>
+                    </div>
+                    <div class="offering-card">
+                        <i class="fas fa-dice"></i>
+                        <h3>Games & Social Fun</h3>
+                        <p>Challenge friends to interactive games in our exciting social atmosphere.</p>
+                    </div>
+                    <div class="offering-card">
+                        <i class="fas fa-glass-cheers"></i>
+                        <h3>Premium Bar Service</h3>
+                        <p>Experience our extensive selection of fine wines, spirits, and signature cocktails.</p>
+                    </div>
+                    <div class="offering-card">
+                        <i class="fas fa-calendar-check"></i>
+                        <h3>Private Events</h3>
+                        <p>Host your special occasions in our elegant space with personalized service and catering.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="contact" class="contact">
+            <div class="container">
+                <h2>Visit Us</h2>
+                <div class="contact-info">
+                    <div class="location">
+                        <i class="fas fa-map-marker-alt"></i>
+                        <p>Abrepo Junction, JP Filling Station, 2nd Floor</p>
+                    </div>
+                    <div class="phone">
+                        <i class="fas fa-phone"></i>
+                        <p><a href="tel:0596922066">0596922066</a></p>
+                    </div>
+                </div>
+                <div class="social-links">
+                    <a href="https://tiktok.com/@thegardenofedengh" target="_blank" rel="noopener">
+                        <i class="fab fa-tiktok"></i>
+                    </a>
+                    <a href="https://instagram.com/thegardenofedengh" target="_blank" rel="noopener">
+                        <i class="fab fa-instagram"></i>
+                    </a>
+                    <a href="https://facebook.com/profile.php?id=61570613925305" target="_blank" rel="noopener">
+                        <i class="fab fa-facebook"></i>
+                    </a>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer class="footer">
+        <div class="container">
+            <p>&copy; 2025 Garden of Eden Restaurant. All rights reserved.</p>
+        </div>
+    </footer>
+</body>
+</html> 
